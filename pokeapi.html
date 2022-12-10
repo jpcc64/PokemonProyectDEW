@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POKEAPI</title>
+    <style>
+        #pokemon{
+            border:1px solid black;
+            padding: 2em;
+        }
+    </style>
+</head>
+ 
+ 
+<body onload = "
+    let n = Math.floor( Math.random()*890 + 1);
+    consulta(n);
+    document.getElementById('pokeID').value = n;
+    ">
+    
+    <div>
+        <input id="pokeID" type="number" onchange="consulta(this.value)">
+    </div>
+    <img id="sprite">
+    <img id="sprite2">
+    <div id="pokemon">
+
+    </div>
+
+
+    <script>
+        // llamo a la API
+        // fetch(url).then(codigo)
+        function consulta(numero) {
+            fetch('https://pokeapi.co/api/v2/pokemon/' + numero)
+                .then(function (resultadoEnBruto) {
+                    return resultadoEnBruto.json();
+                })
+                .then(function (resultadoEnJSON) {
+                    pintaPokemon(resultadoEnJSON);
+                })
+                .catch(function () {
+                    alert("La consulta a la API falló");
+                });
+
+        }
+
+
+        function pintaPokemon(data) {
+           
+            console.log(data);
+
+            let pokemon = document.getElementById('pokemon');
+            let sprite = document.getElementById('sprite');
+            let sprite2 = document.getElementById('sprite2');
+
+            sprite.src = data.sprites.front_default;
+            sprite2.src = data.sprites.back_default;
+
+            pokemon.innerHTML = '';
+
+            let nombre = document.createElement('h2');
+            nombre.innerHTML = data.name;
+            pokemon.appendChild(nombre);
+
+
+            let lista = document.createElement('select');
+            for (let i = 0; i < data.moves.length; i++) {
+                let item = document.createElement('option');
+                item.innerHTML = data.moves[i].move.name;
+                lista.appendChild(item);
+
+            }
+            //
+            pokemon.appendChild(lista);
+
+            /*
+            let txt = '<ul>';
+            for (let i = 0; i < data.moves.length; i++) {
+                txt += '<li>' + data.moves[i].move.name + '</li>';
+            }
+            txt += '</ul>';
+            pokemon.innerHTML = txt;
+            */
+
+
+
+        }
+    </script>
+
+</body>
+
+</html>
