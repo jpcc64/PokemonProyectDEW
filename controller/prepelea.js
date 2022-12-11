@@ -39,7 +39,7 @@ export function creaPokemon(data) {
   creaMovimineto(movimientos, data);
   creaTipos(tipoPokemon, data);
 
-  let pokemonRandom = new Pokemon(
+  const pokemonRandom = new Pokemon(
     nombre,
     tipoPokemon,
     movimientos,
@@ -49,18 +49,16 @@ export function creaPokemon(data) {
     spriteDelantero,
     spriteTrasero
   );
-   console.log(pokemonRandom);
-
   tusPokemon.push(pokemonRandom);
 }
-consulta(n)
-console.log(tusPokemon)
 // se muestra el primer pokemon
 
 let CreaPokemonRandom = document.getElementById("CreaPokemonRandom");
+console.log(pokemonRandom)
 
 function muestraTusPokemon(array){
-
+  consulta(n)
+  console.log(array)
 }
 
-CreaPokemonRandom.addEventListener("click", muestraTusPokemon(tusPokemon));
+CreaPokemonRandom.addEventListener("submit", muestraTusPokemon(tusPokemon));
