@@ -1,9 +1,9 @@
-import { consulta } from "../models/APIPokemon.js";
 import { Pokemon } from "../models/Pokemon.js";
+import { consulta } from "../models/APIPokemon.js";
 
 //Se guarda el nombre -->
 let n = Math.floor(Math.random() * 905 + 1);
-export let tusPokemon = []
+export let tusPokemon = [];
 
 const forNombre = document.getElementById("formNombre");
 
@@ -50,15 +50,13 @@ export function creaPokemon(data) {
     spriteTrasero
   );
   tusPokemon.push(pokemonRandom);
+  let sprite1 = document.getElementById("sprite1");
+  let sprite2 = document.getElementById("sprite2");
+  let pokename = document.getElementById("pokeName");
+  pokename.innerHTML = nombre;
+  sprite1.src = spriteDelantero;
+  sprite2.src = spriteTrasero;
 }
 // se muestra el primer pokemon
-
-let CreaPokemonRandom = document.getElementById("CreaPokemonRandom");
-console.log(pokemonRandom)
-
-function muestraTusPokemon(array){
-  consulta(n)
-  console.log(array)
-}
-
-CreaPokemonRandom.addEventListener("submit", muestraTusPokemon(tusPokemon));
+let GeneraPokemonRandom = document.getElementById("CreaPokemonRandom");
+GeneraPokemonRandom.addEventListener("click", console.log("hola"));
