@@ -59,4 +59,4 @@ export function creaPokemon(data) {
 }
 // se muestra el primer pokemon
 let GeneraPokemonRandom = document.getElementById("CreaPokemonRandom");
-GeneraPokemonRandom.addEventListener("click", console.log("hola"));
+GeneraPokemonRandom.addEventListener("click", consulta(n));
