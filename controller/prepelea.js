@@ -1,16 +1,19 @@
 import { Pokemon } from "../models/Pokemon.js";
-import { consulta } from "../models/APIPokemon.js";
-
+import { consulta } from "./APIPokemon.js";
+import { Jugador } from "../models/Jugador.js ";
 //Se guarda el nombre -->
-let n = Math.floor(Math.random() * 905 + 1);
-export let tusPokemon = [];
-
+// let n = Math.floor(Math.random() * 905 + 1);
+let tusPokemon = [];
+let pokemonEnemigos = [];
 const forNombre = document.getElementById("formNombre");
 
 forNombre.addEventListener("submit", () => {
   const nombreJugador = document.getElementById("nombreJugador");
   localStorage.setItem("Nombre", nombreJugador.value);
 });
+
+const player = new Jugador(forNombre, tusPokemon);
+const enemy = new Jugador("Pepe el dominguero", pokemonEnemigos);
 //Se crea el primer pokemon aleatorio -->
 function creaMovimineto(array, data) {
   for (let i = 0; i < 4; i++) {
@@ -49,14 +52,26 @@ export function creaPokemon(data) {
     spriteDelantero,
     spriteTrasero
   );
-  tusPokemon.push(pokemonRandom);
+  //si ya existe un pokemon en tu array se mete en el array enemigo
+  if (player.tusPokemon[0]) {
+    player.tusPokemon.push(pokemonRandom);
+  } else {
+    enemy.tusPokemon.push(pokemonRandom);
+  }
+
   let sprite1 = document.getElementById("sprite1");
   let sprite2 = document.getElementById("sprite2");
   let pokename = document.getElementById("pokeName");
   pokename.innerHTML = nombre;
   sprite1.src = spriteDelantero;
   sprite2.src = spriteTrasero;
+  console.log(tusPokemon);
 }
+
 // se muestra el primer pokemon
-let GeneraPokemonRandom = document.getElementById("CreaPokemonRandom");
-GeneraPokemonRandom.addEventListener("click", consulta(n));
+let CreaPokemonRandom = document.getElementById("CreaPokemonRandom");
+
+CreaPokemonRandom.addEventListener(
+  "click",
+  consulta(Math.floor(Math.random() * 905 + 1))
+);
