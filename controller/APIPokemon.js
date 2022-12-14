@@ -1,6 +1,6 @@
 // llamo a la API
 // fetch(url).then(codigo)
-import { creaPokemon } from "./prepelea.js";
+import { creaPokemon } from "./sistemaPelea.js";
 function consulta(numero) {
   fetch("https://pokeapi.co/api/v2/pokemon/" + numero)
     .then(function (resultadoEnBruto) {

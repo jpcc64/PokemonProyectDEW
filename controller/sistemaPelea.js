@@ -1,5 +1,5 @@
 import { Pokemon } from "../models/Pokemon.js";
-import { consulta } from "./APIPokemon.js";
+import { consulta, consultaEnemigo } from "./APIPokemon.js";
 import { Jugador } from "../models/Jugador.js ";
 //Se guarda el nombre -->
 // let n = Math.floor(Math.random() * 905 + 1);
@@ -7,13 +7,13 @@ let tusPokemon = [];
 let pokemonEnemigos = [];
 const forNombre = document.getElementById("formNombre");
 
-forNombre.addEventListener("submit", () => {
+forNombre.addEventListener("input", () => {
   const nombreJugador = document.getElementById("nombreJugador");
   localStorage.setItem("Nombre", nombreJugador.value);
 });
 
-const player = new Jugador(forNombre, tusPokemon);
-const enemy = new Jugador("Pepe el dominguero", pokemonEnemigos);
+export const player = new Jugador(forNombre, tusPokemon);
+export const enemy = new Jugador("Pepe el dominguero", pokemonEnemigos);
 //Se crea el primer pokemon aleatorio -->
 function creaMovimineto(array, data) {
   for (let i = 0; i < 4; i++) {
@@ -53,25 +53,48 @@ export function creaPokemon(data) {
     spriteTrasero
   );
   //si ya existe un pokemon en tu array se mete en el array enemigo
-  if (player.tusPokemon[0]) {
+  if (player.tusPokemon.length == 0) {
     player.tusPokemon.push(pokemonRandom);
+    let sprite1 = document.getElementById("sprite1");
+    let sprite2 = document.getElementById("sprite2");
+    let pokename = document.getElementById("pokeName");
+    pokename.innerHTML = nombre;
+    sprite1.src = spriteDelantero;
+    sprite2.src = spriteTrasero;
   } else {
     enemy.tusPokemon.push(pokemonRandom);
   }
+}
+console.log("tus pokemon", player.tusPokemon);
+console.log("pokemon enemigos", enemy.tusPokemon);
 
-  let sprite1 = document.getElementById("sprite1");
-  let sprite2 = document.getElementById("sprite2");
-  let pokename = document.getElementById("pokeName");
-  pokename.innerHTML = nombre;
-  sprite1.src = spriteDelantero;
-  sprite2.src = spriteTrasero;
-  console.log(tusPokemon);
+let botonPelear = document.getElementById("botonPelear");
+
+function grupoEnemigo() {
+  for (let i = 0; i < 3; i++)
+    consultaEnemigo(Math.floor(Math.random() * 905 + 1));
 }
 
-// se muestra el primer pokemon
-let CreaPokemonRandom = document.getElementById("CreaPokemonRandom");
+let pelea = document.getElementById("pelea");
+pelea.remove();
 
-CreaPokemonRandom.addEventListener(
-  "click",
-  consulta(Math.floor(Math.random() * 905 + 1))
-);
+function ocultarPrepelea() {
+  let prepelea = document.getElementById("prePelea");
+  prepelea.remove();
+  document.body.appendChild(pelea);
+}
+
+if (player.tusPokemon.length == 0) {
+  consulta(Math.floor(Math.random() * 905 + 1)), grupoEnemigo();
+}
+
+botonPelear.addEventListener("click", ocultarPrepelea);
+
+///COMIENZA LA PELEA
+const printaPelea = () => {
+  let tuPokemon = document.getElementById("tuPokemon");
+  console.log(player.tusPokemon);
+  // tuPokemon.src = player.tusPokemon.spriteTrasero;
+};
+
+printaPelea();
