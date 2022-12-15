@@ -2,8 +2,7 @@ export class Jugador{
     nombre;
     tusPokemon=[];
 
-    constructor(nombre,tusPokemon){
+    constructor(nombre){
         this.nombre=nombre;
-        this.tusPokemon=tusPokemon
     }
 }
