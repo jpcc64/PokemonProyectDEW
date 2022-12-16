@@ -19,6 +19,7 @@ export class Pokemon {
     // this.vidaActual = this.vidaPokemon(this.clasePokemon);
   }
   convierteDatos(data) {
+    console.log(data)
     this.nombre = data.name;
     this.ataque = data.stats[1].base_stat;
     this.defensa = data.stats[2].base_stat;
@@ -29,9 +30,8 @@ export class Pokemon {
     this.creaTipos(this.tipoPokemon, data);
   }
   creaMovimineto(movimientos, data) {
-    for (let i = 0; i < 4; i++) {
-      let n = Math.floor(Math.random() * data.moves.length + 1);
-      movimientos.push(data.moves[n].move.name);
+    for (let i = 0; i < data.abilities.length; i++) {
+      movimientos.push(data.abilities[i].ability.name);
     }
   }
 
@@ -40,4 +40,5 @@ export class Pokemon {
       tipos.push(data.types[i].type.name);
     }
   }
+
 }
