@@ -11,6 +11,7 @@ export class Pokemon {
   vidaActual;
   spriteDelantero;
   spriteTrasero;
+  slot = [];
 
   constructor(id) {
     consulta(id).then((data) => {
@@ -19,7 +20,7 @@ export class Pokemon {
     // this.vidaActual = this.vidaPokemon(this.clasePokemon);
   }
   convierteDatos(data) {
-    console.log(data)
+    // console.log(data);
     this.nombre = data.name;
     this.ataque = data.stats[1].base_stat;
     this.defensa = data.stats[2].base_stat;
@@ -28,6 +29,7 @@ export class Pokemon {
     this.spriteTrasero = data.sprites.back_default;
     this.creaMovimineto(this.movimientos, data);
     this.creaTipos(this.tipoPokemon, data);
+    this.creaSlot(this.slot,data)
   }
   creaMovimineto(movimientos, data) {
     for (let i = 0; i < data.abilities.length; i++) {
@@ -40,5 +42,9 @@ export class Pokemon {
       tipos.push(data.types[i].type.name);
     }
   }
-
+  creaSlot(slot,data){
+      for (let i = 0; i < data.abilities.length; i++) {
+        slot.push(data.abilities[i].slot);
+      }
+  }
 }
